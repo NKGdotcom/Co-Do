@@ -1,36 +1,43 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class Items 
+[CreateAssetMenu(fileName = "ItemsList", menuName = "ScriptableObjects/ItemsList")]
+public class Items : ScriptableObject
 {
-   //アイテムを列挙
-   public enum Type
+    [System.Serializable]
+    public class ItemType
     {
-        glass,
-        slippers,
-        toilet,
-        driver,
-        blanket,
-        whistle,
-        noodle,
-        flashright,
-        water,
-        glove,
-        battery,
-        bag,
-        platform,
-        tonkati,
-            hasami,
-            amagu
+        /// <summary>
+        /// 獲得できるアイテムの種類
+        /// </summary>
+        public enum ItemTypes
+        {
+            Slippers,Toilet,Driver,Blanket,Whistle,FlashLight,Water,Glove,Battery,Noodle,
+            PlasticBag,SteppingStone,Hammer,Scissors,RainCoat,PieceOfGlass
+        }
+        [Header("アイテムの種類")]
+        public ItemTypes itemTypes;
+        [Header("アイテムのイメージ画像")]
+        public Sprite itemImage;
+
+        public ItemType(ItemTypes itemTypes, Sprite itemImage)
+        {
+            this.itemTypes = itemTypes;
+            this.itemImage = itemImage;
+        }
     }
+    public List<ItemType> itemsList = new List<ItemType>();
 
-    public Type type;       //種類
-    public Sprite sprite;   //Slotに表示する画像
-
-    public Items(Type type, Sprite sprite)
+    public ItemType GetItem(ItemType.ItemTypes itemTypes)
     {
-        this.type = type;
-        this.sprite = sprite;
+        foreach (ItemType items in itemsList)
+        {
+            if (items.itemTypes == itemTypes)
+            {
+                return new ItemType(items.itemTypes, items.itemImage);
+            }
+        }
+        return null;
     }
 }

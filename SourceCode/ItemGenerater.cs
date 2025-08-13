@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class ItemGenerater : MonoBehaviour
 {
-    [SerializeField] ItemListEntity itemListEntity;
+    [SerializeField] private Items _items;
 
-    public static ItemGenerater instance;
+    public static ItemGenerater Instance;
+
     private void Awake()
     {
-        if (instance == null)
+        if(Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
     }
-    public Items Spawn(Items.Type type)
+    public Items.ItemType GetItemInformation(Items.ItemType.ItemTypes type)
     {
-        //itemList‚Ì’†‚©‚çtype‚Æˆê’v‚µ‚½‚ç“¯‚¶item‚ğ¶¬‚µ‚Ä“n‚·
-        foreach (Items item in itemListEntity.itemList)
+        foreach(Items.ItemType item in _items.itemsList)
         {
-            if(item.type == type)
+            if (item.itemTypes == type)
             {
-                return new Items(item.type, item.sprite);
+                return new Items.ItemType(item.itemTypes, item.itemImage);
             }
         }
         return null;
     }
+   
 }
