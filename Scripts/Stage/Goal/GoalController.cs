@@ -4,27 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ゴール判定用のセンサー
-/// 全て解放するまではtriggerにならない
+/// ゴールの衝突処理のスクリプト
 /// </summary>
 public class GoalController : MonoBehaviour
 {
-    //---ゴールしたときなどの表示---
-    [SerializeField] private GoalUIView goalUIView;
-    //---ゴール判定用---
-    private BoxCollider2D goalCol;
-    //---フェード---
+    [Header("コンポーネントの参照")]
+    [Tooltip("ゴールの演出を表示するUI")]
+    [SerializeField] private ResultUIView goalUIView;
+    [Tooltip("フェードアウトをして遷移を行う")]
     [SerializeField] private Fade fade;
+    
+    //ゴール判定用
+    private BoxCollider2D goalCol;
 
-    // Start is called before the first frame update
     void Awake()
     {
-        TryGetComponent<BoxCollider2D>(out goalCol);
-        if(fade == null) { Debug.LogError("fadeが参照されていません。"); return; }
+        if(goalUIView == null) { Debug.LogError("goalUIViewが参照されていません。"); return; }
+        if (fade == null) { Debug.LogError("fadeが参照されていません。"); return; }
     }
 
     private void Update()
     {
+        //リザルト画面が表示しているときにクリックしたらフェードアウトして遷移
         if (Input.GetMouseButtonDown(0)&&GameState.Instance.IsResult())
         {
             fade.FadeOut(this.GetCancellationTokenOnDestroy()).Forget();
@@ -39,14 +40,6 @@ public class GoalController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 全てのタスクをクリア
-    /// </summary>
-    public void AllTaskSoution()
-    {
-        goalCol.isTrigger = true;
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.TryGetComponent<PlayerController>(out var _player))
@@ -56,10 +49,10 @@ public class GoalController : MonoBehaviour
     }
 
     /// <summary>
-    /// タスクが終わらなかった場合
+    /// 全てのタスクをクリア
     /// </summary>
-    public void FailedTask()
+    public void AllTaskSoution()
     {
-        goalUIView.FailedPerformance();
+        goalCol.isTrigger = true;
     }
 }
