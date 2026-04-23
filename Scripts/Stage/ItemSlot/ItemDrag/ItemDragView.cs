@@ -9,10 +9,12 @@ using UnityEngine.UI;
 /// </summary>
 public class ItemDragView : MonoBehaviour
 {
-    //---座標移動に関するもの---
+    //コンポーネント参照
+    //座標移動に関するもの
     private RectTransform rectTransform;
     private Vector2 defaultPos;
-    //---画像変更に関するもの---
+
+    //画像変更に関する処理
     private Image slotItem;
     private float clearValue = 0.5f;
     private const float WHITE_VALUE = 1.0f;
@@ -23,23 +25,41 @@ public class ItemDragView : MonoBehaviour
         TryGetComponent<Image>(out slotItem);
     }
 
+    /// <summary>
+    /// 画像をアイテムに合わせて変更
+    /// </summary>
+    /// <param name="_changeItem"></param>
     public void ChangeImage(Item _changeItem)
     {
+        //取得したアイテムを画像に変換してスロットに表示
         slotItem.sprite = ItemGenerater.Instance.ItemImage(_changeItem);
     }
 
-    //---ドラッグ開始関数---
+    /// <summary>
+    /// ドラッグを開始したら位置を保存し、画像の色を薄くする
+    /// </summary>
     public void DragStart()
     {
         SaveSlotPos();
         ChangeItemPaleColor();
     }
+
     /// <summary>
-    /// スロットの位置を取得
+    /// ドラッグ中、画像を座標移動
     /// </summary>
-    private void SaveSlotPos()
+    /// <param name="eventData"></param>
+    public void WhileDragging(PointerEventData eventData)
     {
-        defaultPos = rectTransform.anchoredPosition;
+        MoveItemUI(eventData);
+    }
+
+    /// <summary>
+    /// ドラッグを終えたら、保存した位置に戻し、画像の色を元に戻す
+    /// </summary>
+    public void DragEnd()
+    {
+        ReturnSlotPos();
+        RestoreColor();
     }
 
     /// <summary>
@@ -51,11 +71,6 @@ public class ItemDragView : MonoBehaviour
         slotItem.raycastTarget = false;
     }
 
-    // ---ドラッグ中関数---
-    public void WhileDragging(PointerEventData eventData)
-    {
-        MoveItemUI(eventData);
-    }
     /// <summary>
     /// 画像を座標移動
     /// </summary>
@@ -64,20 +79,22 @@ public class ItemDragView : MonoBehaviour
         rectTransform.Translate(eventData.delta);
     }
 
-    // ---ドラッグ終わった関数---
-    public void DragEnd()
+    /// <summary>
+    /// スロットの位置を取得し保存
+    /// </summary>
+    private void SaveSlotPos()
     {
-        RestoreColor();
-        ReturnSlotPos();
+        defaultPos = rectTransform.anchoredPosition;
     }
 
     /// <summary>
-    /// 色を元に戻す
+    /// 画像の色を元に戻す
     /// </summary>
     private void RestoreColor()
     {
         slotItem.color = Color.white;
     }
+
     /// <summary>
     /// 元の位置に戻す
     /// </summary>
