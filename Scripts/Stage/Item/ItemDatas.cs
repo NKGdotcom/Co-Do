@@ -9,6 +9,8 @@ using UnityEngine;
 public class ItemDatas : ScriptableObject
 {
     public List<ItemData> ItemDataLists { get => itemDataLists; private set => itemDataLists = value; }
+    [Header("アイテムのデータリスト")]
+    [Tooltip("アイテムのデータを格納するリスト")]
     [SerializeField] private List<ItemData> itemDataLists = new List<ItemData>();
 }
 
@@ -18,13 +20,14 @@ public class ItemDatas : ScriptableObject
 [System.Serializable]
 public class ItemData
 {
-    [Header("アイテムの種類")]
+    [Header("アイテムのデータ")]
+    [Tooltip("アイテムの種類を設定")]
     public Item item;
-    [Header("参照画像")]
+    [Tooltip("参照画像の設定")]
     public Sprite itemSprite;
-    [Header("アイテム名")]
+    [Tooltip("アイテムの名前")]
     public string itemName;
-    [Header("紹介テキスト")]
+    [Tooltip("アイテムの紹介テキスト")]
     public string itemText;
 }
 

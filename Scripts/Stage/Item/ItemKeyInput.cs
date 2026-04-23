@@ -8,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class ItemKeyInput : MonoBehaviour
 {
+    [Header("コンポーネントの参照")]
+    [Tooltip("アイテムの所持を管理するコンポーネント")]
     [SerializeField] private ItemHaveController itemHaveController;
 
     private void Awake()
@@ -22,7 +24,7 @@ public class ItemKeyInput : MonoBehaviour
     }
 
     /// <summary>
-    /// デバッグキーのような役割
+    /// キー入力でアイテムの生成
     /// </summary>
     private void KeyGenerateItem()
     {
