@@ -7,11 +7,13 @@ using UnityEngine;
 /// </summary>
 public class SoundManager : MonoBehaviour
 {
-    [Header("BGMのオーディオ")]
+    [Header("オーディオソース")]
+    [Tooltip("BGMを流すオーディオソース")]
     [SerializeField] private AudioSource bgmAudioSource;
-    [Header("SEのオーディオ")]
     [SerializeField] private AudioSource seAudioSource;
+
     [Header("サウンドデータ")]
+    [Tooltip("音を鳴らすデータセット")]
     [SerializeField] private SoundList soundList;
 
     public static SoundManager Instance { get; private set; }

@@ -17,5 +17,6 @@ public enum BGMSource
 [Serializable]
 public enum SESource
 {
-    HAPPY
+    HAPPY,
+    
 }

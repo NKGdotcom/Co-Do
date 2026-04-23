@@ -12,8 +12,10 @@ public class SoundList : ScriptableObject
     public class BGMSoundData
     {
         [Header("音の種類")]
+        [Tooltip("音の種類を選択し、呼び出す際はこの種類を指定して呼び出す")]
         public BGMSource BGMSource;
         [Header("音のクリップ")]
+        [Tooltip("音のクリップを指定し、鳴らしたい音を付ける")]
         public AudioClip BGMAudioClip;
 
         public BGMSoundData(BGMSource BGMSource, AudioClip BGMAudioClip)
@@ -26,8 +28,10 @@ public class SoundList : ScriptableObject
     public class SESoundData
     {
         [Header("音の種類")]
+        [Tooltip("音の種類を選択し、呼び出す際はこの種類を指定して呼び出す")]
         public SESource SESource;
         [Header("音のクリップ")]
+        [Tooltip("音のクリップを指定し、鳴らしたい音を付ける")]
         public AudioClip SEAudioClip;
         public SESoundData(SESource SESource, AudioClip SEAudioClip)
         {
