@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+/// <summary>
+/// タスクに関するUIを管理するクラス
+/// </summary>
 public class BaseTaskView : MonoBehaviour, ITaskView
 {
-    //---近づいた際に表示するコメント---
-    public GameObject CommentUI { get => commentUI; private set => commentUI = value; }
+    [Header("タスクに近づいた際に表示するコメント")]
+    [Tooltip("タスクに近づいた際に表示するUI全体")]
     [SerializeField] private GameObject commentUI;
+    public GameObject CommentUI { get => commentUI; }
+    [Tooltip("タスク完了前のコメント")]
     [SerializeField] private TextMeshProUGUI beforeCommentTMP;
+    [Tooltip("タスク完了後のコメント")]
     [SerializeField] private TextMeshProUGUI afterCommentTMP;
-    //---タスクが終わったかの判定など---
-    [Header("タスク完了後に表示するものを一度のみか何度も見せるか")]
+
+    [Header("タスクの状態に関する設定")]
     [SerializeField] private bool isEveryDisplay = true;
+
     private bool isFinishedDisplay = false; //isEveryDisplayがfalseの場合isFinishedDisplayで一回表示したか判断
     private bool isTaskClear = false;
     private void Awake()
@@ -31,28 +37,11 @@ public class BaseTaskView : MonoBehaviour, ITaskView
         {
             DisplayEveryTime();
         }
-        else if(!isEveryDisplay && !isFinishedDisplay)
+        //1回のみ表示するか
+        else if (!isEveryDisplay && !isFinishedDisplay)
         {
             DisplayEveryTime();
         }
-    }
-
-    /// <summary>
-    /// タスクが終わった後も毎回コメントを表示する
-    /// </summary>
-    private void DisplayEveryTime()
-    {
-        commentUI.gameObject.SetActive(true);
-        if (!isTaskClear) { SetBeforeText(); }
-        else { SetAfterText(); }
-    }
-
-    /// <summary>
-    /// タスク完了前のテキストセット
-    /// </summary>
-    private void SetBeforeText()
-    {
-        beforeCommentTMP.enabled = true;
     }
 
     /// <summary>
@@ -71,7 +60,7 @@ public class BaseTaskView : MonoBehaviour, ITaskView
     {
         commentUI.gameObject.SetActive(false);
         beforeCommentTMP.enabled = false;
-        afterCommentTMP.enabled= false;
+        afterCommentTMP.enabled = false;
     }
 
     /// <summary>
@@ -81,5 +70,24 @@ public class BaseTaskView : MonoBehaviour, ITaskView
     {
         isFinishedDisplay = true;
         isTaskClear = true;
+    }
+
+    /// <summary>
+    /// タスクが終わった後も毎回コメントを表示する
+    /// </summary>
+    private void DisplayEveryTime()
+    {
+        commentUI.gameObject.SetActive(true);
+        //タスクが解決する前なら前のコメントを、解決しているなら後のコメントを表示する
+        if (!isTaskClear) { SetBeforeText(); }
+        else { SetAfterText(); }
+    }
+
+    /// <summary>
+    /// タスク完了前のテキストセット
+    /// </summary>
+    private void SetBeforeText()
+    {
+        beforeCommentTMP.enabled = true;
     }
 }
