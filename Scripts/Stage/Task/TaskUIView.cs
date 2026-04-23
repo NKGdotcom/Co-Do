@@ -4,11 +4,12 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// タスクの解決すべき問題のUIを表示
+/// タスク数に関するUIを表示
 /// </summary>
 public class TaskUIView : MonoBehaviour
 {
-    //---解決すべき問題のUI---
+    [Header("コンポーネント参照")]
+    [Tooltip("解決すべき問題の数を表示")]
     [SerializeField] private TextMeshProUGUI taskTMP;
 
     void Awake()
@@ -21,6 +22,7 @@ public class TaskUIView : MonoBehaviour
     /// </summary>
     public void UpdateTaskView(int _nowSolution, int _shouldSolution)
     {
+        //現在の解決数と、解決すべき問題の数を表示
         taskTMP.text = $"解決すべき問題：{_nowSolution}/{_shouldSolution}";
     }
 }

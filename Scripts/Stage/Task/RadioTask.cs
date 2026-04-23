@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class RadioTask : MonoBehaviour
+/// <summary>
+/// ラジオのタスクの管理
+/// </summary>
+public class RadioTask : BaseTask
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// ラジオタスク専用の処理、特に変更することはないため空
+    /// </summary>
+    public override void SpecialExcuteTask()
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
