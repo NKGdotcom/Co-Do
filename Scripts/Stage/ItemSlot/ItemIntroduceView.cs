@@ -5,11 +5,19 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// アイテム紹介UIの管理を行うクラス
+/// </summary>
 public class ItemIntroduceView : MonoBehaviour
 {
+    [Header("アイテム紹介UI")]
+    [Tooltip("UIをひとまとまりとしたオブジェクト")]
     [SerializeField] private GameObject itemIntroduceObject;
+    [Tooltip("アイテムの画像を表示するImage")]
     [SerializeField] private Image itemImage;
+    [Tooltip("アイテムの名前を表示するTextMeshProUGUI")]
     [SerializeField] private TextMeshProUGUI itemNameTMP;
+    [Tooltip("アイテムの説明文を表示するTextMeshProUGUI")]
     [SerializeField] private TextMeshProUGUI itemIntroduceTMP;
 
     private void Awake()
@@ -21,7 +29,7 @@ public class ItemIntroduceView : MonoBehaviour
     }
 
     /// <summary>
-    /// アイテム紹介を表示
+    /// アイテム紹介をUIで表示
     /// </summary>
     /// <param name="_item"></param>
     public void ShowIntroduceUI(Item _item)
@@ -37,6 +45,7 @@ public class ItemIntroduceView : MonoBehaviour
     /// </summary>
     public void HideIntroduceUI()
     {
+        //UIを一つにまとめたオブジェクトを非表示にする
         itemIntroduceObject.SetActive(false);
     }
 }
